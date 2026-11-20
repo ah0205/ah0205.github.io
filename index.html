@@ -1,162 +1,241 @@
 <!DOCTYPE html>
-<!-- oss-template-2026:placeholder （この目印で，scripts/check.sh が「準備中」のページかどうかを見分けます） -->
-<!--
-  テンプレートの「準備中」のページです．
-  このページが https://ユーザー名.github.io/ に表示されたら，GitHub Pages の設定は成功です．
-  第7回の実習4で，このファイルを第6回で作った index.html に置きかえます．
--->
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>準備中</title>
-  <style>
-    /* ===== 色の設定 ===== */
-    :root {
-      --main-color: #2e7d32;  /* メインの色（見出し・番号） */
-      --bg-color: #f5f8f5;    /* ページの背景の色 */
-      --card-color: #ffffff;  /* カードの背景の色 */
-      --text-color: #222222;  /* 文字の色 */
-      --sub-color: #666666;   /* 補足の文字の色 */
-      --line-color: #dfe6df;  /* 区切り線の色 */
-    }
+    <!-- 文字コード設定 -->
+    <meta charset="UTF-8">
 
-    /* パソコンやスマートフォンがダークモードのときの色 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --main-color: #81c784;
-        --bg-color: #121512;
-        --card-color: #1e231e;
-        --text-color: #e8ece8;
-        --sub-color: #a0a8a0;
-        --line-color: #2f362f;
-      }
-    }
+    <!-- スマートフォン対応 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* ページ全体：カードを画面のまんなかに置く */
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      box-sizing: border-box;
-      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
-      line-height: 1.8;
-      color: var(--text-color);
-      background: var(--bg-color);
-    }
+    <title>HA Portfolio Magazine</title>
 
-    /* まんなかのカード */
-    main {
-      width: 100%;
-      max-width: 600px;
-      padding: 32px 28px;
-      background: var(--card-color);
-      border-top: 6px solid var(--main-color);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
+    <style>
+        /* ==========================
+           全体設定
+        ========================== */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-    h1 {
-      margin: 0 0 4px;
-      font-size: clamp(1.3rem, 6vw, 1.6rem);  /* スマートフォンでは少し小さくする */
-      line-height: 1.4;
-      color: var(--main-color);
-    }
+        body{
+            font-family:"Yu Gothic","Hiragino Sans",sans-serif;
+            background:#f5f5f5;
+            color:#222;
+            line-height:1.8;
+        }
 
-    h2 {
-      margin: 28px 0 8px;
-      padding-bottom: 4px;
-      font-size: 1.05rem;
-      border-bottom: 1px solid var(--line-color);
-    }
+        /* ==========================
+           雑誌全体のレイアウト
+        ========================== */
+        .magazine{
+            max-width:1200px;
+            margin:0 auto;
+            padding:20px;
+        }
 
-    /* 「設定は成功」のバッジ */
-    .badge {
-      display: inline-block;
-      margin: 8px 0 0;
-      padding: 2px 12px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: var(--card-color);
-      background: var(--main-color);
-      border-radius: 999px;
-    }
+        /* ==========================
+           表紙エリア
+        ========================== */
+        .cover{
+            background:#ffffff;
+            border:8px solid #222;
+            padding:50px 30px;
+            margin-bottom:25px;
+            text-align:center;
+        }
 
-    /* 「次にやること」の番号つきリスト */
-    ol {
-      margin: 0;
-      padding-left: 1.4em;
-    }
-    li {
-      margin-bottom: 6px;
-    }
-    li::marker {
-      font-weight: bold;
-      color: var(--main-color);
-    }
+        .cover h1{
+            font-size:clamp(3rem,8vw,6rem);
+            letter-spacing:0.15em;
+            margin-bottom:10px;
+        }
 
-    /* コマンドの見た目 */
-    code {
-      padding: 1px 6px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 0.88em;
-      background: var(--bg-color);
-      border-radius: 4px;
-      white-space: nowrap;  /* コマンドの途中で折り返さない */
-    }
+        .cover-subtitle{
+            font-size:1rem;
+            text-transform:uppercase;
+            letter-spacing:0.2em;
+            margin-bottom:25px;
+            color:#666;
+        }
 
-    /* 補足の小さな文字 */
-    .sub {
-      font-size: 0.9rem;
-      color: var(--sub-color);
-    }
+        .catchcopy{
+            font-size:1.4rem;
+            font-weight:bold;
+        }
 
-    /* いちばん下の小さな文字 */
-    footer {
-      margin-top: 28px;
-      padding-top: 12px;
-      font-size: 0.8rem;
-      color: var(--sub-color);
-      border-top: 1px solid var(--line-color);
-    }
-    a {
-      color: var(--main-color);
-    }
-  </style>
+        /* ==========================
+           雑誌風グリッド
+        ========================== */
+        .grid{
+            display:grid;
+            grid-template-columns:2fr 1fr;
+            gap:20px;
+            margin-bottom:20px;
+        }
+
+        /* スマホ表示 */
+        @media(max-width:768px){
+            .grid{
+                grid-template-columns:1fr;
+            }
+        }
+
+        /* ==========================
+           記事ブロック
+        ========================== */
+        .article{
+            background:#fff;
+            padding:25px;
+            border-top:6px solid #000;
+        }
+
+        .article h2{
+            font-size:1.6rem;
+            margin-bottom:15px;
+            border-bottom:2px solid #000;
+            padding-bottom:8px;
+        }
+
+        /* ==========================
+           本文
+        ========================== */
+        p{
+            margin-bottom:10px;
+        }
+
+        /* ==========================
+           リスト
+        ========================== */
+        ul{
+            padding-left:20px;
+        }
+
+        li{
+            margin-bottom:8px;
+        }
+
+        /* ==========================
+           サイド記事
+        ========================== */
+        .sidebar{
+            background:#fff;
+            padding:25px;
+            border-top:6px solid #000;
+        }
+
+        .sidebar h2{
+            font-size:1.3rem;
+            border-bottom:2px solid #000;
+            margin-bottom:15px;
+            padding-bottom:8px;
+        }
+
+        /* ==========================
+           趣味タグ
+        ========================== */
+        .tags{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .tag{
+            border:1px solid #000;
+            padding:6px 12px;
+            font-size:0.9rem;
+        }
+
+        /* ==========================
+           フッター
+        ========================== */
+        footer{
+            background:#fff;
+            padding:25px;
+            text-align:center;
+            border-top:4px solid #000;
+            margin-top:20px;
+        }
+
+        .quote{
+            font-style:italic;
+            font-size:1.1rem;
+        }
+    </style>
 </head>
 <body>
-  <main>
-    <h1>このサイトは準備中です</h1>
-    <p class="badge">GitHub Pages の設定 OK</p>
-    <p>このページが表示されていれば，あなたのリポジトリは正しく公開されています．
-      あとは，このページを自分のサイトに置きかえるだけです．</p>
 
-    <h2>次にやること</h2>
-    <ol>
-      <li>このリポジトリを，SSHのURLで <code>git clone</code> する</li>
-      <li><code>index.html</code> を，第6回で作ったサイトに置きかえる</li>
-      <li><code>bash scripts/check.sh</code> で，公開前のチェックをする</li>
-      <li><code>git add</code> → <code>git commit</code> → <code>git push origin main</code> する</li>
-      <li>数分待ってから，このページを再読み込みする</li>
-    </ol>
-    <p class="sub">再読み込みしても変わらないときは，強制再読み込み（Windows：Ctrl + F5，Mac：Command + Shift + R）を試しましょう．</p>
+    <div class="magazine">
 
-    <h2>公開する前に</h2>
-    <ul>
-      <li>本名のフルネーム・学籍番号・住所・電話番号・メールアドレスが入っていないか</li>
-      <li>自己紹介に書いていないことを，AIが付け足していないか</li>
-    </ul>
-    <p class="sub">このリポジトリは Public です．サイトだけでなく，ファイルの中身やコミットの履歴も，誰でも見ることができます．</p>
+        <!-- 表紙 -->
+        <header class="cover">
+            <div class="cover-subtitle">PERSONAL PORTFOLIO MAGAZINE</div>
+            <h1>HA</h1>
+            <p class="catchcopy">「ほとんどの時間をパソコンの前で過ごしています」</p>
+        </header>
 
-    <footer>
-      拓殖大学工学部『オープンソースソフトウェア』2026年度<br>
-      <a href="https://github.com/tomohitoy/oss-practice-2026/blob/main-07/chap07/README.md">第7回の資料</a>
-      ・
-      <a href="https://github.com/tomohitoy/oss-template-2026">テンプレート（tomohitoy/oss-template-2026）</a>
-    </footer>
-  </main>
+        <!-- メイン記事エリア -->
+        <div class="grid">
+
+            <!-- 基本情報記事 -->
+            <article class="article">
+                <h2>PROFILE</h2>
+
+                <p><strong>名前：</strong>HA</p>
+                <p><strong>学年：</strong>3</p>
+                <p><strong>所属：</strong>拓殖大学工学部</p>
+
+                <h2 style="margin-top:30px;">この授業で学びたいこと</h2>
+
+                <ul>
+                    <li>OSSの基本的な使い方</li>
+                    <li>OSSでできること</li>
+                </ul>
+            </article>
+
+            <!-- サイド記事 -->
+            <aside class="sidebar">
+
+                <h2>PROGRAMMING</h2>
+
+                <ul>
+                    <li>Java</li>
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                </ul>
+
+                <h2 style="margin-top:25px;">HOBBY</h2>
+
+                <div class="tags">
+                    <span class="tag">スポーツ観戦</span>
+                    <span class="tag">パソコンゲーム</span>
+                    <span class="tag">アイドル</span>
+                    <span class="tag">音楽鑑賞</span>
+                    <span class="tag">アニメ</span>
+                    <span class="tag">バイク</span>
+                </div>
+
+            </aside>
+
+        </div>
+
+        <!-- コラム風記事 -->
+        <section class="article">
+            <h2>COLUMN</h2>
+
+            <p class="quote">
+                最近冷えてきて、バイク乗りには厳しい季節になってきました。
+                運転中と出先の温度差で、服装が難しいです。
+            </p>
+        </section>
+
+        <!-- フッター -->
+        <footer>
+            <p>HA Portfolio Magazine</p>
+        </footer>
+
+    </div>
+
 </body>
 </html>
